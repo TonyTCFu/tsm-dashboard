@@ -62,13 +62,13 @@
 <main class="wrap">
   <section id="price" class="hero">
     <article class="card price">
-      <div class="eyebrow">2026-10-06 收盘 · USD</div>
-      <div class="price-row"><div class="big-price" id="livePrice">$482.30</div><div><div class="negative" id="liveChange">−$3.50&nbsp; −0.72%</div><div class="price-meta" id="livePrev">前收 $485.80</div></div></div>
+      <div class="eyebrow" id="quoteEyebrow">2026-10-06 收盘 · USD</div>
+      <div class="price-row"><div class="big-price" id="quotePrice">$482.30</div><div><div class="chg neg negative" id="quoteChg">−3.50 · −0.72%</div><div class="price-meta" id="livePrev">前收 $485.80</div></div></div>
       <div class="metrics">
         <div class="metric"><small>开盘</small><strong id="liveOpen">$484.23</strong></div><div class="metric"><small>日高</small><strong id="liveHigh">$486.00</strong></div><div class="metric"><small>日低</small><strong id="liveLow">$481.48</strong></div><div class="metric"><small>成交量</small><strong id="liveVolume">8,346,203</strong></div>
       </div>
-      <div class="snapshot-note"><span class="dot"></span><span id="snapshotLabel">静态研究快照 · Finnhub / stockanalysis / Zacks / markets.financialcontent（10/06 收盘）</span></div>
-      <div class="quote-actions"><button class="refresh-btn" id="refreshQuote" type="button">刷新实时行情</button><span class="quote-status" id="quoteStatus">手动刷新 · 来源按可用性降级</span></div>
+      <div class="snapshot-note"><span class="dot"></span><span id="quoteMeta">静态研究快照 · Finnhub / stockanalysis / Zacks / markets.financialcontent（10/06 收盘）</span></div>
+      <div class="quote-actions"><button class="refresh-btn" id="refreshQuote" type="button">↻ 刷新实时行情</button><span class="quote-status tag" id="quoteStateTag">等待实时行情</span></div>
     </article>
     <aside class="card quick">
       <h2>估值与区间</h2>
@@ -180,45 +180,91 @@
     <article class="card thesis-panel"><h2>主要风险</h2><ul class="thesis-list"><li>股价接近 52 周高点，估值已计入较强 AI 与盈利增长预期。</li><li>先进制程巨额资本开支、海外厂爬坡与成本稀释可能压迫中期回报率。</li><li>客户集中与 AI 需求周期放缓会放大库存、利用率与价格波动。</li><li>地缘政治、出口管制与供应链中断是无法靠单一财务指标消化的尾部风险。</li><li>财报前低 IV 可能上升；若突破正 Gamma 平衡，短期波动会反向放大。</li></ul></article>
   </section>
 </main>
-<footer><div class="wrap footer-grid"><div><h2>研究完整性</h2><p>2026-10-06 收盘行情经 Finnhub、stockanalysis、Zacks 与 markets.financialcontent 四源核实；市值约 $2.50T 为 ADR 股数换算值，弃用 stockanalysis 的 stale $2.11T。</p><p>Terafab 合作模式与 Texas 第二园区仍属讨论或第三方判断，不视为公司已确认计划。台湾挂牌目标价换算为计算值。</p></div><div><h2>口径与用途</h2><p>期权数据截至 2026-10-05，使用 OPRA 延迟数据且相对 10-06 收盘滞后。技术位、目标价、Max Pain 与墙位用于描述市场结构，不构成方向预测。</p><p>本页为静态研究快照，不自动更新，也不构成投资建议。最后整理：2026-10-06。</p></div></div></footer>
+<footer><div class="wrap footer-grid"><div><h2>研究完整性</h2><p>2026-10-06 收盘行情经 Finnhub、stockanalysis、Zacks 与 markets.financialcontent 四源核实；市值约 $2.50T 为 ADR 股数换算值，弃用 stockanalysis 的 stale $2.11T。</p><p>Terafab 合作模式与 Texas 第二园区仍属讨论或第三方判断，不视为公司已确认计划。台湾挂牌目标价换算为计算值。</p></div><div><h2>口径与用途</h2><p>期权数据截至 2026-10-05，使用 OPRA 延迟数据且相对 10-06 收盘滞后。技术位、目标价、Max Pain 与墙位用于描述市场结构，不构成方向预测。</p><p>研究数据为静态快照；页首行情在打开页面时自动获取，并于美股交易时段每 15 分钟刷新。本页不构成投资建议。最后整理：2026-10-06。</p></div></div></footer>
 <script>
 (function(){
   'use strict';
-  var refreshBtn=document.getElementById('refreshQuote'),quoteStatus=document.getElementById('quoteStatus');
-  quoteStatus.textContent='手动刷新 · GitHub 定时快照';
-  function number(v){if(v===null||v===undefined)return NaN;return Number(String(v).replace(/[$,%+,]/g,''));}
+  // Real-time quote refresh: fetch CNBC directly in the browser, with TradingView as fallback; no quote.json or GitHub push.
+  var CNBC_URL='https://quote.cnbc.com/quote-html-webservice/restQuote/symbolType/symbol?symbols=TSM&requestMethod=itv&noform=1&partnerId=2&fund=1&exthrs=1&output=json';
+  var TRADINGVIEW_URL='https://scanner.tradingview.com/symbol?symbol=NYSE%3ATSM&fields=close%2Cchange%2Cvolume';
+  var refreshBtn=document.getElementById('refreshQuote');
+  var quoteStateTag=document.getElementById('quoteStateTag');
+  var quotePrice=document.getElementById('quotePrice');
+  var quoteChg=document.getElementById('quoteChg');
+  var quoteMeta=document.getElementById('quoteMeta');
+  var quoteEyebrow=document.getElementById('quoteEyebrow');
+  var lastSuccessfulQuote=null;
+  function number(v){if(v===null||v===undefined||v==='')return NaN;return Number(String(v).replace(/[$,%+,]/g,''));}
   function compactVolume(v){if(!isFinite(v))return '—';return v>=1e9?(v/1e9).toFixed(2)+'B':v>=1e6?(v/1e6).toFixed(2)+'M':v.toLocaleString('en-US');}
-  function easternParts(date){var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(date),out={};parts.forEach(function(part){out[part.type]=part.value;});return out;}
-  function easternWallTimeMs(value){var match=String(value||'').match(/^(\d{4})-(\d{2})-(\d{2}) (\d{2}):(\d{2})$/);if(!match)return NaN;var target=Date.UTC(+match[1],+match[2]-1,+match[3],+match[4],+match[5]),guess=target;for(var i=0;i<2;i++){var p=easternParts(new Date(guess)),observed=Date.UTC(+p.year,+p.month-1,+p.day,+p.hour,+p.minute);guess+=target-observed;}return guess;}
-  function isMarketHours(date){var p=easternParts(date),minutes=+p.hour*60+(+p.minute);return ['Mon','Tue','Wed','Thu','Fri'].indexOf(p.weekday)>-1&&minutes>=570&&minutes<=960;}
-  function applyQuote(q){
-    if(!isFinite(q.price))throw new Error('missing price');
-    var change=isFinite(q.change)?q.change:(isFinite(q.previousClose)?q.price-q.previousClose:NaN),pct=isFinite(q.changePercent)?q.changePercent:(isFinite(change)&&isFinite(q.previousClose)?change/q.previousClose*100:NaN),sign=change>=0?'+':'';
-    document.getElementById('livePrice').textContent='$'+q.price.toFixed(2);
-    document.getElementById('liveChange').textContent=(isFinite(change)?sign+'$'+change.toFixed(2):'—')+'  '+(isFinite(pct)?sign+pct.toFixed(2)+'%':'');
-    document.getElementById('liveChange').className=change>=0?'positive':'negative';
-    document.getElementById('livePrev').textContent=isFinite(q.previousClose)?'前收 $'+q.previousClose.toFixed(2):'前收 —';
-    [['liveOpen',q.open],['liveHigh',q.high],['liveLow',q.low]].forEach(function(x){document.getElementById(x[0]).textContent=isFinite(x[1])?'$'+x[1].toFixed(2):'—';});
-    document.getElementById('liveVolume').textContent=compactVolume(q.volume);
-    document.getElementById('snapshotLabel').textContent=(q.status?q.status+' · ':'')+'GitHub 定时快照 · 非逐笔实时';
+  function easternParts(date){var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(date),out={};parts.forEach(function(part){out[part.type]=part.value;});return out;}
+  function isWeekday(parts){return ['Mon','Tue','Wed','Thu','Fri'].indexOf(parts.weekday)>-1;}
+  function isMarketHours(date){var p=easternParts(date),minutes=+p.hour*60+(+p.minute);return isWeekday(p)&&minutes>=570&&minutes<=960;}
+  function clockSession(date){var p=easternParts(date),minutes=+p.hour*60+(+p.minute);if(!isWeekday(p))return '收盘';if(minutes>=240&&minutes<570)return '盘前';if(minutes>=570&&minutes<=960)return '盘中';if(minutes>960&&minutes<1200)return '盘后';return '收盘';}
+  function sessionLabel(status,date){
+    var value=String(status||'').toUpperCase(),byClock=clockSession(date),byStatus='盘中';
+    if(value.indexOf('PRE')===0)byStatus='盘前';
+    else if(value.indexOf('POST')===0||value==='AH')byStatus='盘后';
+    else if(value==='CLOSED')byStatus='收盘';
+    if(!value)return byClock;
+    if(byStatus==='收盘'||byClock==='收盘')return '收盘';
+    if(byClock==='盘中')return '盘中';
+    if(byClock==='盘前'&&byStatus==='盘后')return '盘前';
+    if(byClock==='盘后'&&byStatus==='盘前')return '盘后';
+    return byStatus;
   }
-  function freshnessLabel(q){
-    var now=new Date();
-    if(!isMarketHours(now))return q.status||'快照已更新';
-    var ageMinutes=Math.max(0,Math.floor((Date.now()-easternWallTimeMs(q.quoteTime))/60000));
-    if(!isFinite(ageMinutes))throw new Error('invalid quote time');
-    if(ageMinutes>90){var hours=Math.floor(ageMinutes/60),minutes=ageMinutes%60;quoteStatus.className='quote-status warn';return '快照已过期（'+hours+' 小时 '+minutes+' 分钟前）';}
-    quoteStatus.className='quote-status';return '快照 '+ageMinutes+' 分钟前';
+  function fetchJson(url){return fetch(url,{cache:'no-store'}).then(function(response){if(!response.ok)throw new Error('HTTP '+response.status);return response.json();});}
+  function fetchCnbc(){
+    return fetchJson(CNBC_URL).then(function(data){
+      var result=data&&data.FormattedQuoteResult,row=result&&result.FormattedQuote&&result.FormattedQuote[0];
+      if(!row||Number(row.code)!==0)throw new Error('CNBC quote unavailable');
+      var price=number(row.last),change=number(row.change),changePercent=number(row.change_pct),previousClose=number(row.previous_day_closing);
+      if(!isFinite(price)||!isFinite(change)||!isFinite(changePercent)||!isFinite(previousClose))throw new Error('CNBC quote incomplete');
+      return{price:price,change:change,changePercent:changePercent,previousClose:previousClose,status:row.curmktstatus,source:'CNBC 直连'};
+    });
   }
-  function fetchJson(url){return fetch(url,{cache:'no-store'}).then(function(r){if(!r.ok)throw new Error(String(r.status));return r.json();});}
-  // Refresh from the same-origin scheduled quote snapshot only.
-  refreshBtn.addEventListener('click',function(){
-    refreshBtn.disabled=true;quoteStatus.className='quote-status';quoteStatus.textContent='正在读取定时快照…';
-    fetchJson('data:application/json;base64,eyJzeW1ib2wiOiJUU00iLCJzb3VyY2UiOiJWZXJpZmllZCBtYXJrZXQgY2xvc2UiLCJnZW5lcmF0ZWRBdCI6IjIwMjYtMTAtMDZUMjA6MDA6MDBaIiwicXVvdGVUaW1lIjoiMjAyNi0xMC0wNiAxNjowMCIsInN0YXR1cyI6IuaUtuebmCIsInByaWNlIjo0ODIuMzAsImNoYW5nZSI6LTMuNTAsImNoYW5nZVBlcmNlbnQiOi0wLjcyLCJwcmV2aW91c0Nsb3NlIjo0ODUuODAsIm9wZW4iOjQ4NC4yMywiaGlnaCI6NDg2LjAwLCJsb3ciOjQ4MS40OCwidm9sdW1lIjo4MzQ2MjAzfQo='+Date.now())
-      .then(function(q){applyQuote(q);quoteStatus.textContent=freshnessLabel(q);})
-      .catch(function(){quoteStatus.className='quote-status warn';quoteStatus.textContent='快照读取失败，点击重试';})
+  function fetchTradingView(){
+    return fetchJson(TRADINGVIEW_URL).then(function(data){
+      var price=number(data&&data.close),changePercent=number(data&&data.change),previousClose=price/(1+changePercent/100),change=price-previousClose;
+      if(!isFinite(price)||!isFinite(change)||!isFinite(changePercent)||!isFinite(previousClose))throw new Error('TradingView quote incomplete');
+      return{price:price,change:change,changePercent:changePercent,previousClose:previousClose,status:'',source:'TradingView 直连'};
+    });
+  }
+  function signed(value){return(value>=0?'+':'−')+Math.abs(value).toFixed(2);}
+  function applyQuote(quote,fetchedAt){
+    var session=sessionLabel(quote.status,fetchedAt),parts=easternParts(fetchedAt),time=parts.hour+':'+parts.minute;
+    quotePrice.textContent='$'+quote.price.toFixed(2);
+    quoteChg.textContent=signed(quote.change)+' · '+signed(quote.changePercent)+'%';
+    quoteChg.className=quote.change>=0?'chg pos positive':'chg neg negative';
+    document.getElementById('livePrev').textContent='前收 $'+quote.previousClose.toFixed(2);
+    quoteEyebrow.textContent='实时行情 · USD';
+    quoteStateTag.className='quote-status tag';
+    quoteStateTag.textContent=session;
+    quoteMeta.textContent='报价 '+time+' ET · '+session+' · 较前收盘 $'+quote.previousClose.toFixed(2)+' · 来源 '+quote.source;
+    lastSuccessfulQuote={time:time,session:session,previousClose:quote.previousClose,source:quote.source};
+  }
+  function showFailure(){
+    quoteStateTag.className='quote-status tag warn';
+    quoteStateTag.textContent='实时行情获取失败，点击重试';
+    if(lastSuccessfulQuote){
+      quoteEyebrow.textContent='最后成功报价 · USD';
+      quoteMeta.textContent='上次报价 '+lastSuccessfulQuote.time+' ET · '+lastSuccessfulQuote.session+' · 较前收盘 $'+lastSuccessfulQuote.previousClose.toFixed(2)+' · 来源 '+lastSuccessfulQuote.source+'（本次更新失败）';
+    }else{
+      quoteEyebrow.textContent='2026-10-06 收盘 · USD';
+      quoteMeta.textContent='实时行情获取失败 · 保留 2026-10-06 收盘研究快照';
+    }
+  }
+  function refreshQuote(){
+    refreshBtn.disabled=true;
+    quoteStateTag.className='quote-status tag';
+    quoteStateTag.textContent='正在获取实时行情…';
+    return fetchCnbc().catch(function(){return fetchTradingView();})
+      .then(function(quote){applyQuote(quote,new Date());})
+      .catch(function(){showFailure();})
       .then(function(){refreshBtn.disabled=false;});
-  });
+  }
+  refreshBtn.addEventListener('click',refreshQuote);
+  refreshQuote();
+  setInterval(function(){if(isMarketHours(new Date()))refreshQuote();},15*60*1000);
   var csv=`07/06,451.79,447.77,460.03,445.60,12788450
 07/07,432.57,438.02,439.80,428.11,14898420
 07/08,436.98,429.00,440.49,428.75,11411250
