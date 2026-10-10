@@ -1,11 +1,11 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="zh-Hant">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
   <meta name="theme-color" content="#e60012">
-  <title>台积电（TSMC）｜TSM ADR 研究看板</title>
+  <title>台積電（TSMC）｜TSM ADR 研究看板</title>
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='12' fill='%23E60012'/%3E%3Cpath fill='white' d='M9 15h46v9H37v27H27V24H9z'/%3E%3C/svg%3E">
   <style>
     :root{
@@ -28,14 +28,14 @@
     main{padding:24px 0 54px}.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
     .price{padding:24px;position:relative;overflow:hidden}.price:after{content:"TSM";position:absolute;right:-8px;bottom:-42px;font-size:132px;font-weight:800;letter-spacing:-.08em;color:color-mix(in srgb,var(--red) 5%,transparent);pointer-events:none}.eyebrow{font-size:12px;font-weight:750;color:var(--muted)}.price-row{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;margin:4px 0 18px}.big-price{font-size:clamp(48px,8vw,78px);font-weight:760;line-height:1;letter-spacing:-.055em}.positive{color:var(--green);font-weight:740}.negative{color:var(--red);font-weight:740}.price-meta{font-size:13px;color:var(--muted)}
     .metrics{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);padding-top:16px;gap:14px;position:relative;z-index:1}.metric small{display:block;font-size:11px;color:var(--muted);margin-bottom:2px}.metric strong{font-size:15px}.snapshot-note{display:flex;gap:9px;align-items:center;margin-top:18px;font-size:12px;color:var(--muted);position:relative;z-index:1}.dot{width:7px;height:7px;border-radius:50%;background:var(--red);flex:none}.quote-actions{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:14px;position:relative;z-index:2}.refresh-btn{appearance:none;border:0;border-radius:7px;background:var(--red);color:#fff;font:700 12px inherit;padding:9px 13px;cursor:pointer}.refresh-btn:hover{background:var(--red-dark)}.refresh-btn:disabled{opacity:.55;cursor:wait}.quote-status{font-size:11px;color:var(--muted)}
-    .quick{padding:22px}.quick h2{font-size:16px;margin:0 0 17px}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.quick-stat{padding:13px 0;border-top:1px solid var(--line)}.quick-stat span{display:block;color:var(--muted);font-size:11px}.quick-stat b{font-size:21px;letter-spacing:-.02em}.range{grid-column:1/-1}.range-track{height:6px;background:var(--line);border-radius:6px;margin:8px 0 5px;position:relative}.range-track:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--red);right:13.36%;top:-2px;box-shadow:0 0 0 3px var(--red-soft)}.range-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
+    .quick{padding:22px}.quick h2{font-size:16px;margin:0 0 17px}.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.quick-stat{padding:13px 0;border-top:1px solid var(--line)}.quick-stat span{display:block;color:var(--muted);font-size:11px}.quick-stat b{font-size:21px;letter-spacing:-.02em}.range{grid-column:1/-1}.range-track{height:6px;background:var(--line);border-radius:6px;margin:8px 0 5px;position:relative}.range-track:after{content:"";position:absolute;width:10px;height:10px;border-radius:50%;background:var(--red);right:15.48%;top:-2px;box-shadow:0 0 0 3px var(--red-soft)}.range-label{display:flex;justify-content:space-between;font-size:11px;color:var(--muted)}
     section{scroll-margin-top:70px;margin-top:28px}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;margin-bottom:12px}.section-head h2{font-size:23px;letter-spacing:-.025em;margin:0}.section-head p{margin:0;color:var(--muted);font-size:12px;text-align:right}.section-body{padding:20px}
     .chart-shell{height:360px;position:relative}.chart-shell canvas{width:100%;height:100%;display:block}.tooltip{display:none;position:absolute;pointer-events:none;background:var(--ink);color:var(--surface);padding:8px 10px;border-radius:7px;font-size:11px;line-height:1.45;box-shadow:var(--shadow);white-space:nowrap;z-index:3}.chart-legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:11px;color:var(--muted)}.legend-dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:5px;background:var(--red)}
     .financial-lead{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}.fin-kpi{background:var(--surface);padding:18px}.fin-kpi span{font-size:11px;color:var(--muted);display:block}.fin-kpi strong{font-size:24px;letter-spacing:-.03em}.fin-kpi em{font-style:normal;color:var(--green);font-size:12px;display:block;margin-top:3px}
     .split{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:16px}.panel{background:var(--surface-2);padding:17px;border-radius:10px}.panel h3{margin:0 0 13px;font-size:15px}.bars{display:grid;gap:10px}.bar-row{display:grid;grid-template-columns:88px 1fr 42px;gap:9px;align-items:center;font-size:12px}.track{height:7px;background:var(--line);border-radius:8px;overflow:hidden}.fill{height:100%;background:var(--red);border-radius:8px}.bar-row b{text-align:right}.details{margin:0;padding:0;list-style:none}.details li{padding:9px 0;border-top:1px solid var(--line);font-size:13px}.details li:first-child{border-top:0;padding-top:0}.details strong{display:block;font-size:12px;margin-bottom:2px}.details span{color:var(--muted)}
     .option-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.badge{font-size:12px;font-weight:750;padding:5px 9px;border-radius:999px;background:var(--green-soft);color:var(--green)}.option-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:16px}.datum{padding:14px;background:var(--surface-2);border-radius:9px;min-height:96px}.datum span{font-size:11px;color:var(--muted);display:block}.datum strong{font-size:19px;display:block;margin:3px 0}.datum small{font-size:10.5px;color:var(--muted);line-height:1.35;display:block}.analysis{margin-top:16px;background:var(--ink);color:var(--surface);padding:20px;border-radius:11px}.analysis h3{margin:0 0 12px;font-size:17px}.analysis ol{list-style:none;counter-reset:item;margin:0;padding:0;display:grid;gap:10px}.analysis li{counter-increment:item;padding-left:34px;position:relative;font-size:13px;color:color-mix(in srgb,var(--surface) 84%,transparent)}.analysis li:before{content:counter(item);position:absolute;left:0;top:0;width:23px;height:23px;display:grid;place-items:center;border-radius:50%;background:var(--red);color:#fff;font-size:11px;font-weight:800}.analysis b{color:var(--surface)}.footnote{margin:13px 0 0;color:var(--muted);font-size:11px}
     .short-grid{display:grid;grid-template-columns:1.2fr .8fr;gap:16px}.short-main{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden}.short-kpi{background:var(--surface);padding:18px}.short-kpi span{font-size:11px;color:var(--muted);display:block}.short-kpi strong{font-size:22px}.notice{padding:17px;background:var(--amber-soft);color:var(--amber);border-radius:10px;font-size:12px}.notice b{display:block;margin-bottom:5px}
-    .ladder{display:grid;gap:7px}.target-row{display:grid;grid-template-columns:138px 1fr 74px;align-items:center;gap:12px;font-size:12px}.target-name b{display:block}.target-name small{color:var(--muted)}.target-track{height:23px;background:var(--surface-2);position:relative;border-radius:4px}.target-track:before{content:"";position:absolute;left:45.14%;top:-4px;bottom:-4px;border-left:1px dashed var(--muted)}.target-fill{height:100%;background:color-mix(in srgb,var(--red) 22%,var(--surface));border-right:3px solid var(--red);border-radius:4px 0 0 4px}.target-value{text-align:right;font-weight:750}.unverified{color:var(--amber)}.consensus{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}.consensus span{font-size:11px;padding:6px 9px;background:var(--surface-2);border-radius:5px}
+    .ladder{display:grid;gap:7px}.target-row{display:grid;grid-template-columns:138px 1fr 74px;align-items:center;gap:12px;font-size:12px}.target-name b{display:block}.target-name small{color:var(--muted)}.target-track{height:23px;background:var(--surface-2);position:relative;border-radius:4px}.target-track:before{content:"";position:absolute;left:43.80%;top:-4px;bottom:-4px;border-left:1px dashed var(--muted)}.target-fill{height:100%;background:color-mix(in srgb,var(--red) 22%,var(--surface));border-right:3px solid var(--red);border-radius:4px 0 0 4px}.target-value{text-align:right;font-weight:750}.unverified{color:var(--amber)}.consensus{margin-top:16px;padding-top:14px;border-top:1px solid var(--line);display:flex;gap:8px;flex-wrap:wrap}.consensus span{font-size:11px;padding:6px 9px;background:var(--surface-2);border-radius:5px}
     .timeline{position:relative;margin-left:7px;padding-left:28px}.timeline:before{content:"";position:absolute;left:4px;top:8px;bottom:8px;width:2px;background:var(--line)}.event{position:relative;padding:0 0 19px}.event:last-child{padding-bottom:0}.event:before{content:"";position:absolute;left:-28px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--surface);border:3px solid var(--red)}.event time{font-size:11px;font-weight:750;color:var(--red);display:block}.event h3{font-size:15px;margin:2px 0}.event p{font-size:12px;color:var(--muted);margin:0}.warn{color:var(--amber)!important}
     .thesis{display:grid;grid-template-columns:1fr 1fr;gap:16px}.thesis-panel{padding:20px}.thesis-panel h2{font-size:19px;margin:0 0 14px}.thesis-list{margin:0;padding:0;list-style:none}.thesis-list li{position:relative;padding:10px 0 10px 22px;border-top:1px solid var(--line);font-size:13px}.thesis-list li:first-child{border-top:0}.thesis-list li:before{content:"";position:absolute;left:0;top:17px;width:8px;height:2px;background:var(--red)}
     footer{border-top:1px solid var(--line);padding:24px 0 40px;color:var(--muted);font-size:11px}.footer-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}footer h2{font-size:13px;color:var(--ink);margin:0 0 6px}footer p{margin:4px 0}
@@ -49,138 +49,140 @@
   <div class="identity">
     <div>
       <div class="ticker">NYSE: TSM · ADR（1:5）</div>
-      <h1 class="title">台积电（TSMC）</h1>
-      <div class="sub">全球晶圆代工龙头｜研究快照与关键变量追踪</div>
+      <h1 class="title">台積電（TSMC）</h1>
+      <div class="sub">全球晶圓代工龍頭｜研究快照與關鍵變數追蹤</div>
     </div>
-    <div class="stamp">数据基准<br><strong>2026-10-08 美股收盘</strong></div>
+    <div class="stamp">資料基準<br><strong>2026-10-09 美股收盤</strong></div>
   </div>
-  <div class="boundary"><strong>先看数据边界：</strong>行情收盘数据经 markets.financialcontent、stockanalysis 与 MarketBeat 交叉核实（均为 2026-10-08）；财务数字为公司公告经多源交叉核实；分析师目标价与期权结构为第三方数据或模型，不等于事实或投资建议。</div>
+  <div class="boundary"><strong>先看資料邊界：</strong>2026-10-09 收盤價與 OHLCV 已由 stockanalysis、marketlog、Webull、TallacOptions EOD 與 Finnhub 交叉核實；盤後價為 Webull 單一來源。財務數字來自公司公告與具名媒體；分析師目標價與期權結構為第三方資料或模型，不等於事實或投資建議。</div>
 </header>
 <nav><div class="wrap navinner">
-  <a href="#price">行情</a><a href="#chart">走势</a><a href="#options-structure">期权结构</a><a href="#financials">财务</a><a href="#short">做空</a><a href="#analysts">目标价</a><a href="#events">事件</a><a href="#thesis">投资逻辑</a>
+  <a href="#price">行情</a><a href="#chart">走勢</a><a href="#options-structure">期權結構</a><a href="#financials">財務</a><a href="#short">做空</a><a href="#analysts">目標價</a><a href="#events">事件</a><a href="#thesis">投資邏輯</a>
 </div></nav>
 <main class="wrap">
   <section id="price" class="hero">
     <article class="card price">
-      <div class="eyebrow" id="quoteEyebrow">2026-10-08 收盘 · USD</div>
-      <div class="price-row"><div class="big-price" id="quotePrice">$457.99</div><div><div class="chg neg negative" id="quoteChg">−14.21 · −3.01%</div><div class="price-meta" id="livePrev">前收 $472.20</div></div></div>
+      <div class="eyebrow" id="quoteEyebrow">2026-10-09 收盤 · USD</div>
+      <div class="price-row"><div class="big-price" id="quotePrice">$453.31</div><div><div class="chg neg negative" id="quoteChg">−4.68 · −1.02%</div><div class="price-meta" id="livePrev">前收 $457.99</div></div></div>
       <div class="metrics">
-        <div class="metric"><small>开盘</small><strong id="liveOpen">$466.32</strong></div><div class="metric"><small>日高</small><strong id="liveHigh">$471.19</strong></div><div class="metric"><small>日低</small><strong id="liveLow">$452.88</strong></div><div class="metric"><small>成交量</small><strong id="liveVolume">13,244,801</strong></div>
+        <div class="metric"><small>開盤 · 10/09 靜態</small><strong id="liveOpen">$464.21</strong></div><div class="metric"><small>日高 · 10/09 靜態</small><strong id="liveHigh">$464.83</strong></div><div class="metric"><small>日低 · 10/09 靜態</small><strong id="liveLow">$449.75</strong></div><div class="metric"><small>成交量 · 10/09 靜態</small><strong id="liveVolume">9,193,579</strong></div>
       </div>
-      <div class="snapshot-note"><span class="dot"></span><span id="quoteMeta">数据截至 2026-10-08 收盘 · 成交量高于 3 个月均量约 11M · 来源：markets.financialcontent、stockanalysis、MarketBeat（10/08）</span></div>
-      <div class="snapshot-note"><span class="dot"></span><span>盘后 $460.46，+$2.47（+0.54%），截至 10/08 18:49 ET · stockanalysis 单一来源</span></div>
-      <div class="quote-actions"><button class="refresh-btn" id="refreshQuote" type="button">↻ 刷新实时行情</button><span class="quote-status tag" id="quoteStateTag">等待实时行情</span></div>
+      <div class="snapshot-note"><span class="dot"></span><span id="quoteMeta">資料截至 2026-10-09 16:00 ET 收盤 · 成交量約 9.2M，低於 3 個月均量 11.31M，屬輕量 · 五源交叉核實</span></div>
+      <div class="snapshot-note"><span class="dot"></span><span>盤後 $452.85，−$0.46（−0.10%），截至 10/09 17:57 ET · Webull 單一來源</span></div>
+      <div class="quote-actions"><button class="refresh-btn" id="refreshQuote" type="button">↻ 刷新即時行情</button><span class="quote-status tag" id="quoteStateTag">等待即時行情</span></div>
     </article>
     <aside class="card quick">
-      <h2>估值与区间</h2>
+      <h2>估值與區間</h2>
       <div class="quick-grid">
-        <div class="quick-stat"><span>市值 · 10/08</span><b>≈ $2.37T</b></div><div class="quick-stat"><span>TTM 市盈率 · MarketBeat 10/08 · 单一来源</span><b>≈ 34.1×</b></div>
-        <div class="quick-stat range"><span>52 周区间 · 2026-10-06 创 ADR 新高</span><div class="range-track"></div><div class="range-label"><span>$266.82</span><span>$487.47</span></div></div>
-        <div class="quick-stat"><span>距 52 周高点</span><b>−6.05%</b></div><div class="quick-stat"><span>股息率</span><b>≈ 0.9%</b></div>
+        <div class="quick-stat"><span>市值 · 10/09</span><b>≈ $2.35T</b></div><div class="quick-stat"><span>TTM 市盈率 · Webull / TickerTape</span><b>≈ 33–34×</b></div>
+        <div class="quick-stat range"><span>52 週區間 · 高點在 10 月上旬（來源間日期略有分歧）</span><div class="range-track"></div><div class="range-label"><span>$266.82</span><span>$487.47</span></div></div>
+        <div class="quick-stat"><span>距 52 週高點</span><b>−7.01%</b></div><div class="quick-stat"><span>股息率</span><b>≈ 1.0%</b></div>
       </div>
     </aside>
   </section>
 
   <section id="chart">
-    <div class="section-head"><h2>价格轨迹</h2><p>最近 64 个交易日 · 日 K 线与成交量（数据截至 2026-10-08）</p></div>
-    <div class="card section-body"><div class="chart-shell"><canvas id="priceChart" aria-label="TSM 最近 64 个交易日日 K 线与成交量图"></canvas><div id="tooltip" class="tooltip"></div></div><div class="chart-legend"><span><i class="legend-dot"></i>日 K 线（绿涨 / 红跌）</span><span>悬停或轻触查看 OHLCV</span><span>价格：美元 · 成交量：股</span></div></div>
+    <div class="section-head"><h2>價格軌跡</h2><p>最近 64 個交易日 · 日 K 線與成交量（資料截至 2026-10-09）</p></div>
+    <div class="card section-body"><div class="chart-shell"><canvas id="priceChart" aria-label="TSM 最近 64 個交易日日 K 線與成交量圖"></canvas><div id="tooltip" class="tooltip"></div></div><div class="chart-legend"><span><i class="legend-dot"></i>日 K 線（綠漲 / 紅跌）</span><span>懸停或輕觸查看 OHLCV</span><span>價格：美元 · 成交量：股</span></div></div>
   </section>
 
   <section id="options-structure">
-    <div class="section-head"><div><div class="option-top"><h2>期权结构</h2><span class="badge">正 Gamma · 收敛中</span></div></div><p>OPRA 延迟数据 · 数据截至 2026-10-07（较现货收盘滞后 1 个交易日）</p></div>
+    <div class="section-head"><div><div class="option-top"><h2>期權結構</h2><span class="badge">正 Gamma · 急速減弱</span></div></div><p>OPRA 延遲資料 · 資料截至 2026-10-08（較現貨收盤滯後 1 個交易日）</p></div>
     <div class="card section-body">
       <div class="option-grid">
-        <div class="datum"><span>净做市商 GEX</span><strong>+$406.1M</strong><small>正 Gamma；较 10/06 的 +$565.4M 收窄</small></div>
-        <div class="datum"><span>Call Wall / Put Wall</span><strong>$500 / $450</strong><small>FlashAlpha；OptiView 最大 Call OI $500（约 77.2K），最大 Put OI $400</small></div>
-        <div class="datum"><span>Max Pain · 全部到期日</span><strong>$420</strong><small>OptiView · 较 10/08 收盘低 8.30%；FlashAlpha 登录前不可见</small></div>
-        <div class="datum"><span>Put-Call 未平仓比</span><strong>1.08</strong><small>OptiView · Call OI 886,673 / Put OI 956,802</small></div>
-        <div class="datum"><span>30 天 ATM IV</span><strong>33.1%</strong><small>OptiView · IV Rank 36/100（低）</small></div>
-        <div class="datum"><span>隐含预期波幅</span><strong>±$39.29</strong><small>约 ±8.3%；来源页面未标注到期日</small></div>
-        <div class="datum"><span>现价位置</span><strong>$457.99</strong><small>Call Wall $500（+9.2%，未到达）；FlashAlpha Put Wall $450（现价高 1.8%，未跌破）；OptiView 最大看跌 OI $400（现价高 14.5%，未跌破）</small></div>
-        <div class="datum"><span>成交异动</span><strong>$450</strong><small>最热行权价，距现价 −1.75%；全链成交量/OI 0.22（上周 0.30，活跃度回落）</small></div>
+        <div class="datum"><span>淨做市商 GEX</span><strong>+$211.7M</strong><small>FlashAlpha · 正 Gamma；由 10/07 的 +$406.1M 再收窄</small></div>
+        <div class="datum"><span>Call Wall / Put Wall</span><strong>$500 / $450</strong><small>FlashAlpha gamma 牆；OptiView 最大 Call OI $500、最大 Put OI $400</small></div>
+        <div class="datum"><span>Max Pain · 全部到期日</span><strong>$420</strong><small>OptiView · 較 10/09 收盤低 7.4%；FlashAlpha 登入前不可見</small></div>
+        <div class="datum"><span>Put-Call 未平倉比</span><strong>1.07</strong><small>OptiView · Call OI 896,225 / Put OI 962,877</small></div>
+        <div class="datum"><span>30 天 ATM IV</span><strong>37.3%</strong><small>OptiView · IV Rank 37/100（Low）；FlashAlpha ATM IV 40.0%、HV20 30.6%</small></div>
+        <div class="datum"><span>隱含預期波幅</span><strong>±$25.22</strong><small>約 ±5.5%；來源頁面未標示到期日，不假設為近月</small></div>
+        <div class="datum"><span>現價位置</span><strong>$453.31</strong><small>Call Wall $500（+10.3%，未達）；FlashAlpha Put Wall $450（現價高 0.7%，未跌破）；OptiView 最大 Put OI $400（−11.8%）</small></div>
+        <div class="datum"><span>成交異動</span><strong>$470</strong><small>最熱行權價，現價上方 +3.7%；全鏈成交量/OI 0.33，較 10/07 的 0.22 顯著走高</small></div>
       </div>
-      <div class="notice" style="margin-top:16px"><b>数据时间边界</b>OptiView 数据截至 2026-10-07 15:55 ET，FlashAlpha 快照截至 2026-10-07 15:44 ET；较 2026-10-08 现货收盘滞后 1 个交易日。FlashAlpha Max Pain 登录前不可见，故不补值。</div>
+      <div class="notice" style="margin-top:16px"><b>資料時間邊界</b>OptiView 資料截至 2026-10-08 15:55 ET，FlashAlpha 快照截至 2026-10-08 15:44 ET；較 2026-10-09 現貨收盤滯後 1 個交易日。FlashAlpha Max Pain 為登入前不可見，非載入失敗，故留空；未經驗證的 Gamma Flip 不展示、不紀錄。</div>
       <div class="analysis">
-        <h3>期权结构解读</h3>
+        <h3>期權結構解讀</h3>
         <ol>
-          <li><b>已核实事实：</b>净做市商 GEX 为 +$406.1M，较 10/06 的 +$565.4M 收窄；仍处正 Gamma，但压缩力减弱，波动放大空间增加。</li>
-          <li><b>已核实事实：</b>现价位于 $450 看跌 Gamma 支撑与 $500 看涨 Gamma 阻力之间，距下墙仅 1.8%，距上墙 9.2%。</li>
-          <li><b>模型推断：</b>按影片框架，若 $450 被跌破，支撑可能转为下行加速器，下一参考为 $400（较现价低 12.6%）；若上穿 $500，则可能加速上行。</li>
-          <li><b>框架说明：</b>Max Pain $420 是全部到期日口径的静态平衡点，位于现价下方 8.3%，绝非目标价，也不可与近月口径直接比较。</li>
-          <li><b>风险情景：</b>成交集中于 $450，呈 pinning 特征；IV 33.1%、Rank 36 处低位，期权对 10/15 财报前方向不确定性的定价有限。10/15 财报可打破钉价；10/08 的 10 年期美债收益率与油价上行已压制股价约 3%。</li>
+          <li><b>已核實事實：</b>正 GEX 僅剩 +$211.7M，一週內由 +$565.4M → +$406.1M → +$211.7M，釘價／壓縮體制仍在但急速減弱。按影片框架，正 Gamma 是「低頭彈簧」；彈簧越鬆，波動越不受壓抑，10/15 財報前本來就會鬆。</li>
+          <li><b>模型推斷：</b>現價 $453.31 夾在 $450 put gamma 牆（下方僅 0.7%）與 $500 call gamma 牆（上方 10.3%）之間，距下牆極近；OptiView 最大 put OI $400 再下 11.8%。按影片框架，牆下方的加速區在 $400 一帶。</li>
+          <li><b>風險情景：</b>若收盤跌破 $450 gamma 牆，$450 可能由支撐轉為下行加速器，下一層為 $400 OI 集中區（−11.8%）；若突破 $500（+10.3%），call 牆可能轉為上行加速器。52 週高 $487.47 僅為中途技術參考；這是框架說明，不是預測。</li>
+          <li><b>框架說明：</b>Max Pain $420（−7.4%）是全部到期日口徑的靜態均衡點，永遠不是目標價。財報臨近時，全到期口徑均衡點對近月走勢的約束力本就較弱，且不可與近月口徑直接比較。</li>
+          <li><b>成交異動判讀：</b>最熱行權價 $470（現價上方 +3.7%）且全鏈成交量/OI 0.33 急升，顯示財報前方向性布局抬頭；但 P/C 1.07 仍輕度偏 put，IV 37.3%／Rank 37 處低檔偏上行。影片框架下，這是「等待事件打破釘價」的典型配置，不是突破確認。</li>
         </ol>
-        <p><b>口径分类：</b>已核实事实＝GEX、墙位、Max Pain、成交量/OI 与快照时间；模型推断＝钉价偏向及破墙后的加速路径；风险情景＝财报与宏观变量打破当前结构，不代表方向预测。</p>
+        <p><b>口徑分類：</b>已核實事實＝GEX、牆位、Max Pain、成交量/OI 與連續三日快照；模型推斷＝釘價偏向與破牆後的加速路徑；風險情景＝10/15 Q3 結果與 Q4 指引可能一次性打破釘價，上下皆可能，GEX 體制決定打破後的速度而非方向。宏觀風險仍包括 10 年期美債殖利率與油價的定價壓力。</p>
       </div>
-      <p class="footnote">Max Pain $420 为全部到期日合并口径，不可与最近到期口径直接比较。<a href="https://opti-view.com/underlying/TSM/open-interest" target="_blank" rel="noopener">OptiView</a> 数据截至 2026-10-07 15:55 ET；<a href="https://flashalpha.com/stock/tsm" target="_blank" rel="noopener">FlashAlpha</a> 快照截至 2026-10-07 15:44 ET。</p>
+      <p class="footnote">Max Pain $420 為全部到期日合併口徑，不可與最近到期口徑直接比較。<a href="https://opti-view.com/underlying/TSM/open-interest" target="_blank" rel="noopener">OptiView</a> 資料截至 2026-10-08 15:55 ET；<a href="https://flashalpha.com/stock/tsm" target="_blank" rel="noopener">FlashAlpha</a> 快照截至 2026-10-08 15:44 ET。</p>
     </div>
   </section>
 
   <section id="financials">
-    <div class="section-head"><h2>财务与经营</h2><p>Q2 2026 为最新已报告季度 · Q3 营收快报更新于 2026-10-08</p></div>
+    <div class="section-head"><h2>財務與經營</h2><p>資料截至 2026-10-09 · Q2 2026 為最新已報告季度 · Q3 快報於 10/08 公布</p></div>
     <div class="card section-body">
       <div class="financial-lead">
-        <div class="fin-kpi"><span>季度营收</span><strong>NT$1,270.38B</strong><em>US$40.20B · +33.7% YoY（US$）</em></div>
-        <div class="fin-kpi"><span>净利润</span><strong>NT$706.56B</strong><em>+77.4% YoY · 历史纪录</em></div>
-        <div class="fin-kpi"><span>稀释 EPS</span><strong>NT$27.25</strong><em>ADR US$4.31</em></div>
-        <div class="fin-kpi"><span>毛利率</span><strong>67.7%</strong><em>历史纪录</em></div>
+        <div class="fin-kpi"><span>季度營收</span><strong>NT$1,270.38B</strong><em>US$40.20B · +33.7% YoY（US$）</em></div>
+        <div class="fin-kpi"><span>淨利潤</span><strong>NT$706.56B</strong><em>+77.4% YoY · 歷史紀錄</em></div>
+        <div class="fin-kpi"><span>稀釋 EPS</span><strong>NT$27.25</strong><em>ADR US$4.31</em></div>
+        <div class="fin-kpi"><span>毛利率</span><strong>67.7%</strong><em>歷史紀錄</em></div>
       </div>
       <div class="split">
-        <div class="panel"><h3>晶圆收入 · 制程节点</h3><div class="bars">
+        <div class="panel"><h3>晶圓收入 · 製程節點</h3><div class="bars">
           <div class="bar-row"><span>3nm</span><div class="track"><div class="fill" style="width:30%"></div></div><b>30%</b></div>
           <div class="bar-row"><span>5nm</span><div class="track"><div class="fill" style="width:33%"></div></div><b>33%</b></div>
           <div class="bar-row"><span>7nm</span><div class="track"><div class="fill" style="width:11%"></div></div><b>11%</b></div>
           <div class="bar-row"><span>2nm</span><div class="track"><div class="fill" style="width:3%"></div></div><b>3%</b></div>
-          <div class="bar-row"><span>≤7nm 合计</span><div class="track"><div class="fill" style="width:77%"></div></div><b>77%</b></div>
+          <div class="bar-row"><span>≤7nm 合計</span><div class="track"><div class="fill" style="width:77%"></div></div><b>77%</b></div>
         </div></div>
-        <div class="panel"><h3>平台组合</h3><div class="bars">
+        <div class="panel"><h3>平台組合</h3><div class="bars">
           <div class="bar-row"><span>HPC</span><div class="track"><div class="fill" style="width:66%"></div></div><b>66%</b></div>
-          <div class="bar-row"><span>智能手机</span><div class="track"><div class="fill" style="width:22%"></div></div><b>22%</b></div>
+          <div class="bar-row"><span>智能手機</span><div class="track"><div class="fill" style="width:22%"></div></div><b>22%</b></div>
           <div class="bar-row"><span>IoT</span><div class="track"><div class="fill" style="width:5%"></div></div><b>5%</b></div>
-          <div class="bar-row"><span>汽车</span><div class="track"><div class="fill" style="width:4%"></div></div><b>4%</b></div>
+          <div class="bar-row"><span>汽車</span><div class="track"><div class="fill" style="width:4%"></div></div><b>4%</b></div>
           <div class="bar-row"><span>DCE</span><div class="track"><div class="fill" style="width:1%"></div></div><b>1%</b></div>
           <div class="bar-row"><span>其他</span><div class="track"><div class="fill" style="width:2%"></div></div><b>2%</b></div>
-        </div><p class="footnote">环比：HPC +20%；Smartphone −4%。</p></div>
+        </div><p class="footnote">環比：HPC +20%；Smartphone −4%。</p></div>
       </div>
       <div class="split">
-        <div class="panel"><h3>利润率</h3><ul class="details"><li><strong>营业利润率 60.3%</strong><span>净利率 55.6%</span></li><li><strong>US$ 口径营收 $40.20B</strong><span>美元口径同比 +33.7%；NT$ 口径同比 +36.0%</span></li><li><strong>Q3 2026 营收 NT$1.494T · 历史纪录</strong><span>+50.9% YoY / +17.6% QoQ；按美元换算较财测上限 US$45.8B 约高 2%。9 月营收 NT$511.86B，+54.6% YoY / −0.6% MoM。2026-10-08 公布 · 来源：Taiwan News、ANI、SemiWiki</span></li><li><strong>H1 2026</strong><span>营收 NT$2.4T（+35.6%）；净利 NT$1.28T（+68.3%）；EPS NT$49.32</span></li></ul></div>
-        <div class="panel"><h3>指引与共识</h3><ul class="details"><li><strong>Q3 营收指引 $44.6–45.8B</strong><span>毛利率 65–67%；营业利润率 56–58%；汇率假设 NT$32/US$</span></li><li><strong>FY2026 营收</strong><span>美元口径同比“略高于 40%”；资本开支上调至 $60–64B（原 $52–56B）；Arizona 总投资承诺 $265B</span></li><li><strong>Q3 市场共识</strong><span>营收约 $45.4B；EPS 约 $4.4</span></li></ul></div>
+        <div class="panel"><h3>利潤率與營收快報</h3><ul class="details"><li><strong>營業利潤率 60.3%</strong><span>淨利率 55.6%</span></li><li><strong>US$ 口徑營收 $40.20B</strong><span>美元口徑同比 +33.7%；NT$ 口徑同比 +36.0%</span></li><li><strong>Q3 2026 營收 NT$1.494T · 歷史新高</strong><span>+50.9% YoY / +17.6% QoQ；高於 LSEG SmartEstimate NT$1.46T（19 家分析師）並超過財測上限 US$45.8B。Reuters 按 NT$31.902 換算約 US$46.71B；官方美元數字待 10/15 完整財報。</span></li><li><strong>9 月營收 NT$511.86B</strong><span>+54.6% YoY / −0.6% MoM，連續兩個月高於 NT$500B。1–9 月累計 NT$3.89873T，+41.1% YoY，歷史新高。10/08 公布 · 來源：Reuters / CNBC</span></li></ul></div>
+        <div class="panel"><h3>指引與投資計畫</h3><ul class="details"><li><strong>Q3 營收指引 $44.6–45.8B</strong><span>毛利率 65–67%；營業利潤率 56–58%；匯率假設 NT$32/US$</span></li><li><strong>FY2026 營收</strong><span>美元口徑同比高於 40%；資本支出 $60–64B</span></li><li><strong>Arizona 擴產</strong><span>新增 $100B 承諾後，美國總投資規模達 $265B</span></li></ul></div>
       </div>
-      <p class="footnote">Q2 2026 财务、利润率、制程与平台组合来源：TSMC 季度业绩公告（2026-07-16）。IoT 占比采用 5%；部分二手来源报 6%，属于口径分歧。</p>
+      <p class="footnote">Q2 2026 財務、利潤率、製程與平台組合來源：TSMC 季度業績公告（2026-07-16）。IoT 佔比採用 5%；部分二手來源報 6%，屬於口徑分歧。</p>
     </div>
   </section>
 
   <section id="short">
-    <div class="section-head"><h2>做空与借券</h2><p>数据截至 2026-09-15 · FINRA 半月度结算口径</p></div>
+    <div class="section-head"><h2>做空與借券</h2><p>FINRA 結算日 2026-09-30 · 查詢截至 2026-10-09 · 半月度口徑</p></div>
     <div class="card section-body short-grid">
-      <div class="short-main"><div class="short-kpi"><span>空头股数</span><strong>27.79M</strong></div><div class="short-kpi"><span>流通股占比</span><strong>0.54%</strong></div><div class="short-kpi"><span>回补天数</span><strong>2.8 天</strong></div></div>
-      <div class="notice"><b>结算日 2026-09-15 · 最新可用</b>MarketBeat 空头持仓页（截至 10/08 查询，单一来源）：27,789,695 股（27.79M），占流通股 0.54%，回补 2.8 天；前值 29,835,409 股，环比 −6.86%。截至 2026-10-08，09-30 结算数据尚未发布。</div>
+      <div class="short-main"><div class="short-kpi"><span>空頭股數</span><strong>30.49M</strong></div><div class="short-kpi"><span>流通股佔比</span><strong>0.59%</strong></div><div class="short-kpi"><span>回補天數</span><strong>3.1 天</strong></div></div>
+      <div class="notice"><b>結算日 2026-09-30 · 最新已發布</b>MarketBeat：30,492,512 股（30.49M），佔流通股 0.59%，回補 3.1 天；ChartExchange 交叉核實為 30,492,512 股／0.59%／3.06 天。相較 09-15 的 27,789,695 股／0.54%／2.8 天，空頭股數上升 9.7%。</div>
     </div>
   </section>
 
   <section id="analysts">
-    <div class="section-head"><h2>分析师目标价阶梯</h2><p>ADR 目标价 · 基准收盘 $457.99 · 逐项日期见列表 · 虚线为现价</p></div>
-    <div class="card section-body"><div class="ladder" id="ladder"></div><div class="consensus"><span>MarketBeat 10/08：Buy · 平均目标价 $524.89</span><span>Barclays · 10/06：$650 → $665 · Overweight</span><span>台湾挂牌换算均采用 NT$32/US$</span></div><p class="footnote">台湾挂牌目标价按汇率 NT$32/US$、1 ADR = 5 股换算，仅为计算值：Citi NT$3,800 → NT$4,000 ≈ US$625/ADR（10/07，Buy）；Goldman Sachs NT$3,100 → NT$3,300 ≈ US$515.6/ADR（10/06，Buy）；JPMorgan NT$3,300 ≈ US$515.6/ADR（未变）。来源：Stock Target Advisor、Markets Insider / ad-hoc-news、MarketBeat（2026-10-06 至 10-08）。</p></div>
+    <div class="section-head"><h2>分析師目標價階梯</h2><p>ADR 目標價 · 基準為 2026-10-09 收盤 $453.31 · 虛線為現價</p></div>
+    <div class="card section-body"><div class="ladder" id="ladder"></div><div class="consensus"><span>MarketBeat 10/08：Buy · 16 家 · 平均 $524.89</span><span>Stock Analysis：21 家 · 平均 $555.01 · 20 家 Buy／Strong Buy、0 Sell</span><span>Zacks ABR 1.21：19 家 · 16 Strong Buy、2 Buy</span><span>台灣掛牌換算均採 NT$32/US$、1 ADR = 5 股</span></div><p class="footnote">台灣掛牌目標價均標為計算值：Citi NT$4,000 ≈ US$625（10/07，Buy，Laura Chen）；UBS NT$3,650 ≈ US$570.3；Goldman Sachs NT$3,300 ≈ US$515.6（10/06，Buy，Evelyn Yu；2026/27 美元營收估 +42.0%/+36.9%、毛利率 67.2%/67.5%，2027/28 capex 上調至 $85B/$98B）；JPMorgan NT$3,300 ≈ US$515.6。Wedbush NT$3,000 ≈ US$468.75（10/08–09，Outperform，Matt Bryson）。</p></div>
   </section>
 
   <section id="events">
-    <div class="section-head"><h2>事件雷达</h2><p>数据截至 2026-10-08 · 日期、来源与核实边界逐项标注</p></div>
+    <div class="section-head"><h2>事件雷達</h2><p>資料截至 2026-10-09 · 日期、來源與核實邊界逐項標註</p></div>
     <div class="card section-body"><div class="timeline">
-      <article class="event"><time>2026-10-08 · 已公布</time><h3>9 月与 Q3 营收创新高</h3><p>9 月营收 NT$5,118.6 亿，+54.6% YoY；Q3 合计 NT$1.494 万亿，+50.9% YoY，较财测上限约高 2%。来源：Taiwan News、ANI、SemiWiki（10/08）。</p></article>
-      <article class="event"><time>2026-10-15 · 周四 · 14:00 台北时间</time><h3>Q3 2026 财报电话会</h3><p>焦点转向毛利率持久度：2nm 与海外产能爬坡的稀释效应，以及 Q4 指引能否延续营收动能。</p></article>
-      <article class="event"><time>除息 / 登记 2026-12-10 · 支付 2027-01-07</time><h3>季度现金股息 $1.0854 / ADR</h3><p>年化约 $4.34，按 10/08 收盘收益率约 0.9%；较上季度 $1.1136 下调。来源：MarketBeat（10/08），单一来源。</p></article>
-      <article class="event"><time>Reuters · 2026-10-07</time><h3>Terafab 合作催化剂解除</h3><p>Musk 澄清 Tesla / SpaceX 将在德州自建、自营 Terafab，TSMC 至多分租部分空间。MarketBeat 将合作预期解除视为近期抛压主因；因果判断属单一二手来源。</p></article>
-      <article class="event"><time>TipRanks · 2026-10-08</time><h3>Arizona / 北美融资支持</h3><p>TSMC Development 向 TSMC Washington 借款 NT$38.3 亿，并对 Arizona 与北美子公司提供数千亿新台币担保。</p></article>
-      <article class="event"><time>CNBC · 2026-10-08</time><h3>2nm 陡峭爬坡与 High NA EUV</h3><p>2nm 于 Q3 加速爬坡；公司承诺采用 ASML High NA EUV，量产节奏与成本效率仍是后续观察点。</p></article>
-      <article class="event"><time>Bloomberg · 2026-10-01</time><h3>德州独立园区仍在早期评估</h3><p>台积电正评估德州独立园区方案；目前仍属早期媒体报道，并非公司已确认建设计划。</p></article>
+      <article class="event"><time>2026-10-09 · 已公布</time><h3>GlobalFoundries 簽訂 $2B 多年矽中介層供應協議</h3><p>由 Malta, New York 廠代工，預計 2028 上半年投產，延伸先進封裝配套與美國製造布局。來源：dailyiq / Simply Wall St（10/09）。</p></article>
+      <article class="event"><time>2026-10-09 · 分析師動態</time><h3>Wedbush 發布 Q3 財測點評</h3><p>維持 Outperform，台灣掛牌目標 NT$3,000（ADR 計算值 $468.75）。Q3 較共識高約 3%；Q4 營收估 NT$1.599T、美元同比 +41%，毛利率指引可能溫和下滑。來源：TradingView / Seeking Alpha（10/08–09）。</p></article>
+      <article class="event"><time>2026-10-08 · 已公布</time><h3>9 月與 Q3 營收創新高</h3><p>9 月營收 NT$5,118.6 億，+54.6% YoY；Q3 合計 NT$1.494 萬億，+50.9% YoY，超過財測上限。來源：Reuters / CNBC（10/08）。</p></article>
+      <article class="event"><time>2026-10-15 · 週四 · 02:00 ET（14:00 台北）· 未來事件</time><h3>Q3 2026 完整財報電話會</h3><p>市場關注毛利率持久度、2nm 與海外產能爬坡的稀釋效應，以及 Q4 指引。</p></article>
+      <article class="event"><time>除息 2026-12-10 · 發放 2027-01-07</time><h3>季度現金股息 $1.0854 / ADR</h3><p>年化約 $4.34；來源：marketlog 交叉確認。</p></article>
+      <article class="event"><time>Reuters · 2026-10-07</time><h3>Terafab 合作催化劑解除</h3><p>Musk 澄清 Tesla / SpaceX 將在德州自建、自營 Terafab，TSMC 至多分租部分空間；合作預期移除為近期拋壓主因之一。</p></article>
+      <article class="event"><time>TipRanks · 2026-10-08</time><h3>Arizona / 北美融資支持</h3><p>TSMC Development 向 TSMC Washington 借款 NT$38.3 億，並對 Arizona 與北美子公司提供數千億新台幣擔保。</p></article>
+      <article class="event"><time>CNBC · 2026-10-08</time><h3>2nm 採用 ASML High NA EUV</h3><p>2nm 加速爬坡；量產節奏與成本效率仍是後續觀察重點。</p></article>
+      <article class="event"><time>Bloomberg · 2026-10-01</time><h3>德州達拉斯獨立園區仍在早期評估</h3><p>目前仍屬早期媒體報導，並非公司已確認的建設計畫。</p></article>
     </div></div>
   </section>
 
   <section id="thesis" class="thesis">
-    <article class="card thesis-panel"><h2>为什么投资</h2><ul class="thesis-list"><li>AI/HPC 已占平台收入 66%，先进制程的产品组合与议价能力同步改善。</li><li>≤7nm 占晶圆收入 77%，2nm 已开始贡献，技术领先转化为高毛利。</li><li>Q2 毛利率 67.7% 创纪录，资本开支上调指向需求可见度与扩产信心。</li><li>客户与生态黏性强，先进封装与制程共同构成高进入壁垒。</li><li>美国、日本与台湾多点布局，长期提升供应韧性并靠近核心客户。</li></ul></article>
-    <article class="card thesis-panel"><h2>主要风险</h2><ul class="thesis-list"><li>股价接近 52 周高点，估值已计入较强 AI 与盈利增长预期。</li><li>先进制程巨额资本开支、海外厂爬坡与成本稀释可能压迫中期回报率。</li><li>客户集中与 AI 需求周期放缓会放大库存、利用率与价格波动。</li><li>地缘政治、出口管制与供应链中断是无法靠单一财务指标消化的尾部风险。</li><li>财报前低 IV 可能上升；若突破正 Gamma 平衡，短期波动会反向放大。</li></ul></article>
+    <article class="card thesis-panel"><h2>為什麼投資</h2><ul class="thesis-list"><li>AI/HPC 已佔平台收入 66%，先進製程的產品組合與議價能力同步改善。</li><li>≤7nm 佔晶圓收入 77%，2nm 已開始貢獻，技術領先轉化為高毛利。</li><li>Q2 毛利率 67.7% 創紀錄，資本支出上調指向需求可見度與擴產信心。</li><li>客戶與生態黏性強，先進封裝與製程共同構成高進入壁壘。</li><li>美國、日本與台灣多點布局，長期提升供應韌性並靠近核心客戶。</li></ul></article>
+    <article class="card thesis-panel"><h2>主要風險</h2><ul class="thesis-list"><li>股價接近 52 週高點，估值已計入較強 AI 與盈利增長預期。</li><li>先進製程巨額資本支出、海外廠爬坡與成本稀釋可能壓迫中期回報率。</li><li>客戶集中與 AI 需求週期放緩會放大庫存、利用率與價格波動。</li><li>地緣政治、出口管制與供應鏈中斷是無法靠單一財務指標消化的尾部風險。</li><li>財報前低 IV 可能上升；若突破正 Gamma 平衡，短期波動會反向放大。</li></ul></article>
   </section>
 </main>
-<footer><div class="wrap footer-grid"><div><h2>研究完整性</h2><p>价格数据截至 2026-10-08 收盘；市值约 $2.37T，TTM P/E 约 34.1×。</p><p>盘后报价、股息资料与 Terafab 抛压归因均已标注单一来源；德州独立园区仍属早期媒体报道。台湾挂牌目标价换算为计算值。</p></div><div><h2>口径与用途</h2><p>期权数据截至 2026-10-07，使用 OPRA 延迟数据；现价比较采用 10/08 收盘。技术位、目标价、Max Pain 与墙位用于描述市场结构，不构成方向预测。</p><p>研究数据为静态快照；页首行情在打开页面时自动获取，并于美股交易时段每 15 分钟刷新。本页不构成投资建议。最后整理：2026-10-09。</p></div></div></footer>
+<footer><div class="wrap footer-grid"><div><h2>研究完整性</h2><p>價格資料截至 2026-10-09 收盤；市值約 $2.35T，TTM P/E 約 33–34×。</p><p>盤後報價已標註 Webull 單一來源；52 週高點日期存在來源分歧。台灣掛牌目標價換算均為計算值。</p></div><div><h2>口徑與用途</h2><p>期權資料截至 2026-10-08，使用 OPRA 延遲資料；現價比較採 10/09 收盤。技術位、目標價、Max Pain 與牆位用於描述市場結構，不構成方向預測。</p><p>研究資料為靜態快照；頁首行情在開啟頁面時自動取得，並於美股交易時段每 15 分鐘刷新。本頁不構成投資建議。最後整理：2026-10-10。</p></div></div></footer>
 <script>
 (function(){
   'use strict';
@@ -199,17 +201,17 @@
   function easternParts(date){var parts=new Intl.DateTimeFormat('en-US',{timeZone:'America/New_York',weekday:'short',hour:'2-digit',minute:'2-digit',hourCycle:'h23'}).formatToParts(date),out={};parts.forEach(function(part){out[part.type]=part.value;});return out;}
   function isWeekday(parts){return ['Mon','Tue','Wed','Thu','Fri'].indexOf(parts.weekday)>-1;}
   function isMarketHours(date){var p=easternParts(date),minutes=+p.hour*60+(+p.minute);return isWeekday(p)&&minutes>=570&&minutes<=960;}
-  function clockSession(date){var p=easternParts(date),minutes=+p.hour*60+(+p.minute);if(!isWeekday(p))return '收盘';if(minutes>=240&&minutes<570)return '盘前';if(minutes>=570&&minutes<=960)return '盘中';if(minutes>960&&minutes<1200)return '盘后';return '收盘';}
+  function clockSession(date){var p=easternParts(date),minutes=+p.hour*60+(+p.minute);if(!isWeekday(p))return '收盤';if(minutes>=240&&minutes<570)return '盤前';if(minutes>=570&&minutes<=960)return '盤中';if(minutes>960&&minutes<1200)return '盤後';return '收盤';}
   function sessionLabel(status,date){
-    var value=String(status||'').toUpperCase(),byClock=clockSession(date),byStatus='盘中';
-    if(value.indexOf('PRE')===0)byStatus='盘前';
-    else if(value.indexOf('POST')===0||value==='AH')byStatus='盘后';
-    else if(value==='CLOSED')byStatus='收盘';
+    var value=String(status||'').toUpperCase(),byClock=clockSession(date),byStatus='盤中';
+    if(value.indexOf('PRE')===0)byStatus='盤前';
+    else if(value.indexOf('POST')===0||value==='AH')byStatus='盤後';
+    else if(value==='CLOSED')byStatus='收盤';
     if(!value)return byClock;
-    if(byStatus==='收盘'||byClock==='收盘')return '收盘';
-    if(byClock==='盘中')return '盘中';
-    if(byClock==='盘前'&&byStatus==='盘后')return '盘前';
-    if(byClock==='盘后'&&byStatus==='盘前')return '盘后';
+    if(byStatus==='收盤'||byClock==='收盤')return '收盤';
+    if(byClock==='盤中')return '盤中';
+    if(byClock==='盤前'&&byStatus==='盤後')return '盤前';
+    if(byClock==='盤後'&&byStatus==='盤前')return '盤後';
     return byStatus;
   }
   function fetchJson(url){return fetch(url,{cache:'no-store'}).then(function(response){if(!response.ok)throw new Error('HTTP '+response.status);return response.json();});}
@@ -219,14 +221,14 @@
       if(!row||Number(row.code)!==0)throw new Error('CNBC quote unavailable');
       var price=number(row.last),change=number(row.change),changePercent=number(row.change_pct),previousClose=number(row.previous_day_closing);
       if(!isFinite(price)||!isFinite(change)||!isFinite(changePercent)||!isFinite(previousClose))throw new Error('CNBC quote incomplete');
-      return{price:price,change:change,changePercent:changePercent,previousClose:previousClose,status:row.curmktstatus,source:'CNBC 直连'};
+      return{price:price,change:change,changePercent:changePercent,previousClose:previousClose,status:row.curmktstatus,source:'CNBC 直連'};
     });
   }
   function fetchTradingView(){
     return fetchJson(TRADINGVIEW_URL).then(function(data){
       var price=number(data&&data.close),changePercent=number(data&&data.change),previousClose=price/(1+changePercent/100),change=price-previousClose;
       if(!isFinite(price)||!isFinite(change)||!isFinite(changePercent)||!isFinite(previousClose))throw new Error('TradingView quote incomplete');
-      return{price:price,change:change,changePercent:changePercent,previousClose:previousClose,status:'',source:'TradingView 直连'};
+      return{price:price,change:change,changePercent:changePercent,previousClose:previousClose,status:'',source:'TradingView 直連'};
     });
   }
   function signed(value){return(value>=0?'+':'−')+Math.abs(value).toFixed(2);}
@@ -236,27 +238,27 @@
     quoteChg.textContent=signed(quote.change)+' · '+signed(quote.changePercent)+'%';
     quoteChg.className=quote.change>=0?'chg pos positive':'chg neg negative';
     document.getElementById('livePrev').textContent='前收 $'+quote.previousClose.toFixed(2);
-    quoteEyebrow.textContent='实时行情 · USD';
+    quoteEyebrow.textContent='即時行情 · USD';
     quoteStateTag.className='quote-status tag';
     quoteStateTag.textContent=session;
-    quoteMeta.textContent='报价 '+time+' ET · '+session+' · 较前收盘 $'+quote.previousClose.toFixed(2)+' · 来源 '+quote.source;
+    quoteMeta.textContent='取得時間 '+time+' ET · '+session+' · 較前收盤 $'+quote.previousClose.toFixed(2)+' · 來源 '+quote.source+'；開高低量維持 10/09 收盤靜態快照';
     lastSuccessfulQuote={time:time,session:session,previousClose:quote.previousClose,source:quote.source};
   }
   function showFailure(){
     quoteStateTag.className='quote-status tag warn';
-    quoteStateTag.textContent='实时行情获取失败，点击重试';
+    quoteStateTag.textContent='即時行情取得失敗，點擊重試';
     if(lastSuccessfulQuote){
-      quoteEyebrow.textContent='最后成功报价 · USD';
-      quoteMeta.textContent='上次报价 '+lastSuccessfulQuote.time+' ET · '+lastSuccessfulQuote.session+' · 较前收盘 $'+lastSuccessfulQuote.previousClose.toFixed(2)+' · 来源 '+lastSuccessfulQuote.source+'（本次更新失败）';
+      quoteEyebrow.textContent='最後成功報價 · USD';
+      quoteMeta.textContent='上次取得 '+lastSuccessfulQuote.time+' ET · '+lastSuccessfulQuote.session+' · 較前收盤 $'+lastSuccessfulQuote.previousClose.toFixed(2)+' · 來源 '+lastSuccessfulQuote.source+'（本次更新失敗；開高低量維持 10/09 靜態快照）';
     }else{
-      quoteEyebrow.textContent='2026-10-08 收盘 · USD';
-      quoteMeta.textContent='实时行情获取失败 · 保留 2026-10-08 收盘研究快照';
+      quoteEyebrow.textContent='2026-10-09 收盤 · USD';
+      quoteMeta.textContent='即時行情取得失敗 · 保留 2026-10-09 收盤研究快照';
     }
   }
   function refreshQuote(){
     refreshBtn.disabled=true;
     quoteStateTag.className='quote-status tag';
-    quoteStateTag.textContent='正在获取实时行情…';
+    quoteStateTag.textContent='正在取得即時行情…';
     return fetchCnbc().catch(function(){return fetchTradingView();})
       .then(function(quote){applyQuote(quote,new Date());})
       .catch(function(){showFailure();})
@@ -328,7 +330,8 @@
 10/05,485.80,478.77,487.47,476.40,10918574
 10/06,482.30,484.23,486.00,481.48,8346203
 10/07,472.20,472.60,475.80,471.30,7304828
-10/08,457.99,466.32,471.19,452.88,13244801`;
+10/08,457.99,466.32,471.19,452.88,13244801
+10/09,453.31,464.21,464.83,449.75,9193579`;
   var data=csv.trim().split('\n').map(function(line){var p=line.split(',');return{date:p[0],close:+p[1],open:+p[2],high:+p[3],low:+p[4],volume:+p[5]};});
   var canvas=document.getElementById('priceChart'),tip=document.getElementById('tooltip'),ctx=canvas.getContext('2d'),points=[];
   function css(name){return getComputedStyle(document.documentElement).getPropertyValue(name).trim();}
@@ -341,9 +344,9 @@
     points=[];chartData.forEach(function(d,i){var x=pad.l+(i+.5)*xStep,up=d.close>=d.open,color=up?css('--green'):css('--red'),openY=y(d.open),closeY=y(d.close),top=Math.min(openY,closeY),bodyHeight=Math.max(1.5,Math.abs(closeY-openY)),volumeHeight=(d.volume/maxVolume)*(volumeBottom-volumeTop);ctx.strokeStyle=color;ctx.lineWidth=1;ctx.beginPath();ctx.moveTo(x,y(d.high));ctx.lineTo(x,y(d.low));ctx.stroke();ctx.fillStyle=color;ctx.fillRect(x-candleWidth/2,top,candleWidth,bodyHeight);ctx.globalAlpha=.28;ctx.fillRect(x-candleWidth/2,volumeBottom-volumeHeight,candleWidth,volumeHeight);ctx.globalAlpha=1;points.push({x:x,y:closeY,d:d});});
     [0,15,31,47,63].forEach(function(i){ctx.fillStyle=css('--muted');ctx.fillText(chartData[i].date,Math.min(w-42,pad.l+(i+.5)*xStep-13),h-7);});
   }
-  function show(e){var r=canvas.getBoundingClientRect(),clientX=e.touches?e.touches[0].clientX:e.clientX,x=clientX-r.left,best=points.reduce(function(a,b){return Math.abs(b.x-x)<Math.abs(a.x-x)?b:a;});var d=best.d;tip.innerHTML='<b>'+d.date+'</b><br>开 '+d.open.toFixed(2)+' · 高 '+d.high.toFixed(2)+'<br>低 '+d.low.toFixed(2)+' · 收 '+d.close.toFixed(2)+'<br>量 '+compactVolume(d.volume);tip.style.display='block';tip.style.left=Math.min(r.width-128,Math.max(4,best.x+10))+'px';tip.style.top=Math.max(4,best.y-58)+'px';}
+  function show(e){var r=canvas.getBoundingClientRect(),clientX=e.touches?e.touches[0].clientX:e.clientX,x=clientX-r.left,best=points.reduce(function(a,b){return Math.abs(b.x-x)<Math.abs(a.x-x)?b:a;});var d=best.d;tip.innerHTML='<b>'+d.date+'</b><br>開 '+d.open.toFixed(2)+' · 高 '+d.high.toFixed(2)+'<br>低 '+d.low.toFixed(2)+' · 收 '+d.close.toFixed(2)+'<br>量 '+compactVolume(d.volume);tip.style.display='block';tip.style.left=Math.min(r.width-128,Math.max(4,best.x+10))+'px';tip.style.top=Math.max(4,best.y-58)+'px';}
   canvas.addEventListener('mousemove',show);canvas.addEventListener('touchstart',show,{passive:true});canvas.addEventListener('mouseleave',function(){tip.style.display='none';});window.addEventListener('resize',draw);window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw);draw();
-  var targets=[['Barclays','Overweight · $650 → $665 · 10/06',665],['Citi TW','Buy · NT$4,000 · 计算值 · 10/07',625],['MarketBeat 共识','Buy · 平均值 · 10/08',524.89],['Goldman Sachs TW','Buy · NT$3,100 → NT$3,300 · 计算值 · 10/06',515.63],['JPMorgan TW','NT$3,300 · 计算值 · 未变',515.63],['现价','2026-10-08 收盘',457.99]];
+  var targets=[['Barclays','Overweight · $650 → $665 · ADR 掛牌最高 · 10/06',665],['Citi TW','Buy · NT$4,000 · 計算值 · 10/07',625],['UBS TW','NT$3,650 · 計算值 · 未變',570.31],['Stock Analysis 共識','21 家 · 20 Buy／Strong Buy · 0 Sell',555.01],['MarketBeat 共識','Buy · 16 家 · 10/08',524.89],['Goldman Sachs TW','Buy · NT$3,300 · 計算值 · 10/06',515.63],['JPMorgan TW','NT$3,300 · 計算值 · 未變',515.63],['Stifel','Buy · 未變',515],['Wedbush TW','Outperform · NT$3,000 · 計算值 · 10/08–09',468.75],['現價','2026-10-09 收盤',453.31]];
   var root=document.getElementById('ladder');targets.forEach(function(t){var row=document.createElement('div');row.className='target-row';var pct=Math.max(4,Math.min(100,(t[2]-300)/350*100));row.innerHTML='<div class="target-name'+(t[0].indexOf('⚠')>-1?' unverified':'')+'"><b>'+t[0]+'</b><small>'+t[1]+'</small></div><div class="target-track"><div class="target-fill" style="width:'+pct+'%"></div></div><div class="target-value">$'+(t[2]%1?t[2].toFixed(2):t[2])+'</div>';root.appendChild(row);});
 })();
 </script>
